@@ -35,7 +35,7 @@ class HashStore {
 	 * @param int $flags
 	 * @throws \Exception
 	 */
-	public final function __construct($path, $flags = self::BY_DATE){
+	public function __construct($path, $flags = self::BY_DATE){
 		if (!file_exists($path) || !is_dir($path) || !is_writable($path)){
 			throw new \Exception('Storage path "' . $this->path . '" is not exists or not writable!');
 		}
