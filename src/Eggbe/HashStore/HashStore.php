@@ -45,13 +45,13 @@ class HashStore {
 		foreach(glob($this->path . DIRECTORY_SEPARATOR . '*') as $file){
 			$Data = preg_split('/;+/', file_get_contents($file), -1, PREG_SPLIT_NO_EMPTY);
 			if (count($Data) < 2){
-				throw new \Exception('Invalid has format [1]!');
+				throw new \Exception('Invalid hash format [1]!');
 			}
 			if (!is_numeric($Data[0])){
-				throw new \Exception('Invalid has format [2]!');
+				throw new \Exception('Invalid hash format [2]!');
 			}
 			if (!preg_match('/^[a-z0-9]{32}$/', $Data[1])){
-				throw new \Exception('Invalid has format [3]!');
+				throw new \Exception('Invalid hash format [3]!');
 			}
 			$Hashes[$Data[0]][basename($file)] = trim($Data[1]);
 		}
