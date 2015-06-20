@@ -1,3 +1,7 @@
+* 1.1.0 (2015-06-20)
+
+  * [incompatible] changed method: HashStore::__construct
+
 * 1.0.0
 
  * initial version

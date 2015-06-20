@@ -6,14 +6,19 @@ use \Eggbe\Helpers\Hash;
 class HashStore {
 
 	/**
-	 * @const string
+	 * @const int
 	 */
-	const BY_DATE = 'by_date';
+	const BY_DATE = 0b0001;
 
 	/**
-	 * @const string
+	 * @const int
 	 */
-	const BY_ABC = 'by_abc';
+	const BY_WORD = 0b0010;
+
+	/**
+	 * @const int
+	 */
+	const BY_DESC = 0b1000;
 
 	/**
 	 * @var string
@@ -27,19 +32,14 @@ class HashStore {
 
 	/**
 	 * @param string $path
-	 * @param string $sort
-	 * @param bool $reverse
+	 * @param int $flags
 	 * @throws \Exception
 	 */
-	public final function __construct($path, $sort = self::BY_DATE, $reverse = false){
+	public final function __construct($path, $flags = self::BY_DATE){
 		if (!file_exists($path) || !is_dir($path) || !is_writable($path)){
 			throw new \Exception('Storage path "' . $this->path . '" is not exists or not writable!');
 		}
 		$this->path = $path;
-
-		if ($sort !== self::BY_DATE && $sort !== self::BY_ABC){
-			throw new \Exception('Unknown sorting method!');
-		}
 
 		$Hashes = [];
 		foreach(glob($this->path . DIRECTORY_SEPARATOR . '*') as $file){
@@ -56,9 +56,9 @@ class HashStore {
 			$Hashes[$Data[0]][basename($file)] = trim($Data[1]);
 		}
 
-		if ($sort == self::BY_DATE){
+		if ($flags & self::BY_DATE){
 			ksort($Hashes, SORT_NUMERIC);
-			if ((bool)$reverse){
+			if ($flags & self::BY_DESC){
 				$Hashes = array_reverse($Hashes, true);
 			}
 		}
@@ -69,9 +69,9 @@ class HashStore {
 			}
 		}
 
-		if ($sort == self::BY_ABC){
+		if ($flags & self::BY_WORD){
 			ksort($this->Hashes, SORT_STRING | SORT_FLAG_CASE);
-			if ((bool)$reverse){
+			if ($flags & self::BY_DESC){
 				$this->Hashes = array_reverse($this->Hashes);
 			}
 		}
