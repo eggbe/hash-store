@@ -86,9 +86,18 @@ class HashStore {
 	}
 
 	/**
+	 * @param string $key
+	 * @return bool
+	 */
+	public function find($key){
+		return array_key_exists(($key = strtolower(trim($key))), $this->Hashes)
+			? $this->Hashes[$key] : false;
+	}
+
+	/**
 	 * @return array
 	 */
-	public final function all() {
+	public function all() {
 		return $this->Hashes;
 	}
 
@@ -97,7 +106,7 @@ class HashStore {
 	 * @return string
 	 * @throws \Exception
 	 */
-	public final function create($key){
+	public function create($key){
 		$file = $this->path . DIRECTORY_SEPARATOR . preg_replace('/:+/', '_', ($key = strtolower(trim($key))));
 		if (file_exists($file)){
 			throw new \Exception('Hash for "' . $key . '" already exists!');
@@ -111,7 +120,7 @@ class HashStore {
 	 * @param string $key
 	 * @throws \Exception
 	 */
-	public final function remove($key){
+	public function remove($key){
 		if (!array_key_exists(($key = strtolower(trim($key))), $this->Hashes)){
 			throw new \Exception('Unknown hash key "' . $key . '"!');
 		}
