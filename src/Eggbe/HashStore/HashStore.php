@@ -97,9 +97,9 @@ class HashStore {
 	 * @throws \Exception
 	 */
 	public final function create($key){
-		$file = $this->path . DIRECTORY_SEPARATOR . preg_replace('/:+/', '_', strtolower($key));
+		$file = $this->path . DIRECTORY_SEPARATOR . preg_replace('/:+/', '_', ($key = strtolower(trim($key))));
 		if (file_exists($file)){
-			throw new \Exception('Hash "' . $key . '" already exists!');
+			throw new \Exception('Hash for "' . $key . '" already exists!');
 		}
 		file_put_contents($file, time() . ';' . md5($key . Hash::solt(10)));
 	}
@@ -109,7 +109,7 @@ class HashStore {
 	 * @throws \Exception
 	 */
 	public final function remove($key){
-		if (!array_key_exists(($key = strtolower($key)), $this->Hashes)){
+		if (!array_key_exists(($key = strtolower(trim($key))), $this->Hashes)){
 			throw new \Exception('Unknown hash key "' . $key . '"!');
 		}
 		unlink($this->path . DIRECTORY_SEPARATOR . $key);
