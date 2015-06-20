@@ -94,6 +94,7 @@ class HashStore {
 
 	/**
 	 * @param string $key
+	 * @return string
 	 * @throws \Exception
 	 */
 	public final function create($key){
@@ -101,7 +102,9 @@ class HashStore {
 		if (file_exists($file)){
 			throw new \Exception('Hash for "' . $key . '" already exists!');
 		}
-		file_put_contents($file, time() . ';' . md5($key . Hash::solt(10)));
+		$hash = md5($key . Hash::solt(10));
+		file_put_contents($file, time() . ';' . $hash);
+		return $hash;
 	}
 
 	/**
