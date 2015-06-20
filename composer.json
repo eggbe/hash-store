@@ -1,6 +1,6 @@
 {
 	"name": "eggbe/hash-store",
-	"version": "1.1.1",
+	"version": "1.1.2",
 	"type": "library",
 	"keywords": ["hash", "storage"],
 	"minimum-stability": "dev",
