@@ -42,15 +42,22 @@ class HashStore {
 		$this->path = $path;
 
 		$Hashes = [];
-		foreach(glob($this->path . DIRECTORY_SEPARATOR . '*') as $file){
+		foreach(scandir($this->path, SCANDIR_SORT_NONE) as $file){
+			if (preg_match('/^\./', $file)){
+				continue;
+			}
+			$file = $this->path . DIRECTORY_SEPARATOR . $file;
+			if (!is_file($file)){
+				continue;
+			}
 			$Data = preg_split('/;+/', file_get_contents($file), -1, PREG_SPLIT_NO_EMPTY);
-			if (count($Data) < 2){
+			if (count($Data) < 2) {
 				throw new \Exception('Invalid hash format [1] found in "' . $file . '"!');
 			}
-			if (!is_numeric($Data[0])){
+			if (!is_numeric($Data[0])) {
 				throw new \Exception('Invalid hash format [2] found in "' . $file . '"!');
 			}
-			if (!preg_match('/^[a-z0-9]{32}$/', $Data[1])){
+			if (!preg_match('/^[a-z0-9]{32}$/', $Data[1])) {
 				throw new \Exception('Invalid hash format [3] found in "' . $file . '"!');
 			}
 			$Hashes[$Data[0]][basename($file)] = trim($Data[1]);
