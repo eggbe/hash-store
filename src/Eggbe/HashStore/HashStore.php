@@ -1,27 +1,19 @@
 <?php
 namespace Eggbe\HashStore;
 
+use \Eggbe\Helpers\Hash;
+
 class HashStore {
 
 	/**
 	 * @const string
 	 */
-	const SORT_BY_DATE = 'by_date';
+	const BY_DATE = 'by_date';
 
 	/**
 	 * @const string
 	 */
-	const SORT_BY_ABC = 'by_abc';
-
-	/**
-	 * @const string
-	 */
-	const SORT_TYPE_ASC = 'asc';
-
-	/**
-	 * @const string
-	 */
-	conST SORT_TYPE_DESC = 'desc';
+	const BY_ABC = 'by_abc';
 
 	/**
 	 * @var string
@@ -29,25 +21,92 @@ class HashStore {
 	private $path = null;
 
 	/**
-	 * @param array $Config
-	 * @param string $sortBy
-	 * @param string $sortType
+	 * @var array
+	 */
+	private $Hashes = [];
+
+	/**
+	 * @param string $path
+	 * @param string $sort
+	 * @param bool $reverse
 	 * @throws \Exception
 	 */
-	public final function __construct(array $Config = [], $sortBy = self::SORT_BY_DATE, $sortType = self::SORT_TYPE_ASC){
-		if (!array_key_exists('path', $Config)){
-			throw new \Exception('Storage path in not defined!');
-		}
-		$this->path = $Config['path'];
-		if (file_exists($this->path) || !is_dir($this->path) || !is_writable($this->path)){
+	public final function __construct($path, $sort = self::BY_DATE, $reverse = false){
+		if (!file_exists($path) || !is_dir($path) || !is_writable($path)){
 			throw new \Exception('Storage path "' . $this->path . '" is not exists or not writable!');
 		}
+		$this->path = $path;
 
-		_dumpe(glob($this->path . DIRECTORY_SEPARATOR . '*'));
+		if ($sort !== self::BY_DATE && $sort !== self::BY_ABC){
+			throw new \Exception('Unknown sorting method!');
+		}
+
+		$Hashes = [];
+		foreach(glob($this->path . DIRECTORY_SEPARATOR . '*') as $file){
+			$Data = preg_split('/;+/', file_get_contents($file), -1, PREG_SPLIT_NO_EMPTY);
+			if (count($Data) < 2){
+				throw new \Exception('Invalid has format [1]!');
+			}
+			if (!is_numeric($Data[0])){
+				throw new \Exception('Invalid has format [2]!');
+			}
+			if (!preg_match('/^[a-z0-9]{32}$/', $Data[1])){
+				throw new \Exception('Invalid has format [3]!');
+			}
+			$Hashes[$Data[0]][basename($file)] = trim($Data[1]);
+		}
+
+		if ($sort == self::BY_DATE){
+			ksort($Hashes, SORT_NUMERIC);
+			if ((bool)$reverse){
+				$Hashes = array_reverse($Hashes, true);
+			}
+		}
+
+		foreach($Hashes as $Hash){
+			foreach($Hash as $key => $value) {
+				$this->Hashes[$key] = $value;
+			}
+		}
+
+		if ($sort == self::BY_ABC){
+			ksort($this->Hashes, SORT_STRING | SORT_FLAG_CASE);
+			if ((bool)$reverse){
+				$this->Hashes = array_reverse($this->Hashes);
+			}
+		}
+
 	}
 
-	public final function all(){
+	/**
+	 * @return array
+	 */
+	public final function all() {
+		return $this->Hashes;
+	}
 
+	/**
+	 * @param string $key
+	 * @throws \Exception
+	 */
+	public final function create($key){
+		$file = $this->path . DIRECTORY_SEPARATOR . preg_replace('/:+/', '_', strtolower($key));
+		if (file_exists($file)){
+			throw new \Exception('Hash "' . $key . '" already exists!');
+		}
+		file_put_contents($file, time() . ';' . md5($key . Hash::solt(10)));
+	}
+
+	/**
+	 * @param string $key
+	 * @throws \Exception
+	 */
+	public final function remove($key){
+		if (!array_key_exists(($key = strtolower($key)), $this->Hashes)){
+			throw new \Exception('Unknown hash key "' . $key . '"!');
+		}
+		unlink($this->path . DIRECTORY_SEPARATOR . $key);
+		unset($this->Hashes[$key]);
 	}
 
 }

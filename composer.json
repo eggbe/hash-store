@@ -12,7 +12,8 @@
 		}
 	],
 	"require": {
-		"php": ">=5.3.0"
+		"php": ">=5.3.0",
+		"eggbe/helpers": "dev-master"
 	},
 	"autoload": {
 		"psr-0": {
