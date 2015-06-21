@@ -1,9 +1,8 @@
 {
 	"name": "eggbe/hash-store",
-	"version": "1.1.2",
+	"version": "1.1.3",
 	"type": "library",
 	"keywords": ["hash", "storage"],
-	"minimum-stability": "dev",
 	"description": "Hashes storage library",
 	"license": "MIT",
 	"authors": [

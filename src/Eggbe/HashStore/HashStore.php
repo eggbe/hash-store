@@ -86,12 +86,22 @@ class HashStore {
 	}
 
 	/**
+	 * It try to find value by key.
 	 * @param string $key
-	 * @return bool
+	 * @return string|false
 	 */
 	public function find($key){
 		return array_key_exists(($key = strtolower(trim($key))), $this->Hashes)
 			? $this->Hashes[$key] : false;
+	}
+
+	/**
+	 * It try to search value by hash.
+	 * @param string $hash
+	 * @return string|false
+	 */
+	public function search($hash){
+		return array_search($hash, $this->Hashes, true);
 	}
 
 	/**
