@@ -1,7 +1,7 @@
 <?php
 namespace Eggbe\HashStore;
 
-use \Eggbe\Helpers\Hash;
+use \Eggbe\Helper\Hash;
 
 class HashStore {
 
