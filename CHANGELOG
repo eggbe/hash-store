@@ -2,17 +2,21 @@
 
   * added new method: HashStore::search
 
+
 * 1.1.2 (2015-06-21)
 
   * added new method: HashStore::find
+
 
 * 1.1.1 (2015-06-20)
 
   * Method HashStore::__construct is not final now!
 
+
 * 1.1.0 (2015-06-20)
 
   * [incompatible] changed method: HashStore::__construct
+
 
 * 1.0.0
 

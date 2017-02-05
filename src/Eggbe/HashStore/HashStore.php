@@ -46,25 +46,31 @@ class HashStore {
 			if (preg_match('/^\./', $file)){
 				continue;
 			}
+
 			$file = $this->path . DIRECTORY_SEPARATOR . $file;
 			if (!is_file($file)){
 				continue;
 			}
+
 			$Data = preg_split('/;+/', file_get_contents($file), -1, PREG_SPLIT_NO_EMPTY);
 			if (count($Data) < 2) {
-				throw new \Exception('Invalid hash format [1] found in "' . $file . '"!');
+				throw new \Exception('Invalid hash format in "' . $file . '"!');
 			}
+
 			if (!is_numeric($Data[0])) {
-				throw new \Exception('Invalid hash format [2] found in "' . $file . '"!');
+				throw new \Exception('Invalid hash format in "' . $file . '"!');
 			}
+
 			if (!preg_match('/^[a-z0-9]{32}$/', $Data[1])) {
-				throw new \Exception('Invalid hash format [3] found in "' . $file . '"!');
+				throw new \Exception('Invalid hash format in "' . $file . '"!');
 			}
+
 			$Hashes[$Data[0]][basename($file)] = trim($Data[1]);
 		}
 
 		if ($flags & self::BY_DATE){
 			ksort($Hashes, SORT_NUMERIC);
+
 			if ($flags & self::BY_DESC){
 				$Hashes = array_reverse($Hashes, true);
 			}
@@ -78,6 +84,7 @@ class HashStore {
 
 		if ($flags & self::BY_WORD){
 			ksort($this->Hashes, SORT_STRING | SORT_FLAG_CASE);
+
 			if ($flags & self::BY_DESC){
 				$this->Hashes = array_reverse($this->Hashes);
 			}
@@ -86,17 +93,17 @@ class HashStore {
 	}
 
 	/**
-	 * It try to find value by key.
+	 * Try to find value for a key.
 	 * @param string $key
 	 * @return string|false
 	 */
-	public function find($key){
+	public function find($key) {
 		return array_key_exists(($key = strtolower(trim($key))), $this->Hashes)
 			? $this->Hashes[$key] : false;
 	}
 
 	/**
-	 * It try to search value by hash.
+	 * It try to find value for a hash.
 	 * @param string $hash
 	 * @return string|false
 	 */
