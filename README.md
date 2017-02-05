@@ -31,9 +31,9 @@ $HashStore = new \Eggbe\HashStore\HashStore([
 ```
 
 The `path` option define the directory to store all generated files. Please, pay attention what you will get an exception if this directory doesn't exists.
-Also the `sort` option specifies the type of sorting and the `filter` option set a regular expression for filtering the keywords. If any keyword won't match this expression the special exception will be thrown.     
+Also the `sort` option specifies the type of sorting and the `filter` option set a regular expression for keywords filtering. If any keyword won't match this expression the special exception will be thrown.     
 
-3. Sorting:
+### Sorting:
 
 All hashes stored with a timestamp to have an ability for extended sorting features.
 
