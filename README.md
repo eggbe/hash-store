@@ -1,9 +1,9 @@
 ## Introduction
-This is the powerful package provides you an easiest way to create and manage of your own lists of hashes.   
+This is the powerful library provides an easiest way to create and manage your own list of hashes.      
 
 
 ## Features
-This package is fully file-based so you don't need use any databases. 
+The library is fully file-based so you don't need use any databases. 
 
 
 ## Requirements
