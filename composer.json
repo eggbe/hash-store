@@ -3,7 +3,7 @@
 	"version": "1.1.4",
 	"type": "library",
 	"keywords": ["hash", "hashes", "file-based", "md5", "lightweight", "lists", "security", "storage"],
-	"description": "Hashes storage library",
+	"description": "File-based library for easy create and manage list of hashes",
 	"license": "MIT",
 	"authors": [
 		{
