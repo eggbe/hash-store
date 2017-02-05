@@ -14,13 +14,13 @@ The library is fully file-based so you don't need to use any databases.
 ## Install
 Here's a pretty simple way to start using Eggbe/HashStore:
 
-1. Use [Composer](http://getcomposer.org) to add Eggbe/HashStore in your project: 
+Step 1: Use [Composer](http://getcomposer.org) to add Eggbe/HashStore in your project: 
 
 ```bash
 composer require eggbe/hash-store
 ```
 
-2. Configure the follow setting in your code:
+Step 2: Configure the follow setting in your code:
 
 ```php
 $HashStore = new \Eggbe\HashStore\HashStore([
@@ -33,11 +33,11 @@ $HashStore = new \Eggbe\HashStore\HashStore([
 The `path` option define the directory to store all generated files. Please, pay attention what you will get an exception if this directory doesn't exists.
 Also the `sort` option specifies the type of sorting and the `filter` option set a regular expression for keywords filtering. If any keyword won't match this expression the special exception will be thrown.     
 
-### Sorting:
+## Sorting
 
 All hashes stored with a timestamp to have an ability for extended sorting features.
-
-Currently it possible to sort hashes by: 
+Currently it possible to sort hashes by:
+ 
 * Keywords in direct order (`'sort' => HashStore::BY_WORD`)
 * Keywords in converse order (`'sort' => HashStore::BY_WORD | HashStore::BY_DESC`) 
 * Dates by descending (`'sort' => HashStore::BY_DATE`)
