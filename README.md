@@ -3,7 +3,7 @@ This is the powerful library provides an easiest way to create and manage your o
 
 
 ## Features
-The library is fully file-based so you don't need use any databases. 
+The library is fully file-based so you don't need to use any databases. 
 
 
 ## Requirements
@@ -30,8 +30,8 @@ $HashStore = new \Eggbe\HashStore\HashStore([
 ]);
 ```
 
-The `path` option define the directory in which all generated files will be stored. Please pay attention what you would get an exception if this directory doesn't exists.
-Also the `sort` option specifies the type of sorting and the `filter` option just set a filter for the hashes names.     
+The `path` option define the directory to store all generated files. Please, pay attention what you will get an exception if this directory doesn't exists.
+Also the `sort` option specifies the type of sorting and the `filter` option set a regular expression for filtering the keywords. If any keyword won't match this expression the special exception will be thrown.     
 
 3. Sorting:
 
