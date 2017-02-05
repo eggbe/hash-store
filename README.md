@@ -14,13 +14,13 @@ The library is fully file-based so you don't need to use any databases.
 ## Install
 Here's a pretty simple way to start using Eggbe/HashStore:
 
-Step 1: Use [Composer](http://getcomposer.org) to add Eggbe/HashStore in your project: 
+###### Step 1: Use [Composer](http://getcomposer.org) to add Eggbe/HashStore in your project: 
 
 ```bash
 composer require eggbe/hash-store
 ```
 
-Step 2: Configure the follow setting in your code:
+###### Step 2: Configure the follow setting in your code:
 
 ```php
 $HashStore = new \Eggbe\HashStore\HashStore([
