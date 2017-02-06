@@ -22,7 +22,7 @@ composer require eggbe/hash-store
 ```
 
 
-Step 2: Configure the follow setting in your code:
+Step 2: Create and configure an instance of object anywhere in your code:
 
 ```php
 $HashStore = new \Eggbe\HashStore\HashStore([
