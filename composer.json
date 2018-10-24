@@ -13,11 +13,13 @@
 	],
 	"require": {
 		"php": ">=7.0.0",
-		"eggbe/helpers": "dev-master"
+		"able/helpers": "dev-master"
 	},
 	"autoload": {
-		"psr-0": {
-			"Eggbe\\HashStore": "src/"
+		"psr-4": {
+			"Eggbe\\HashStore\\": "src/"
 		}
-	}
+	},
+	"minimum-stability": "dev",
+	"prefer-stable": true
 }
