@@ -8,7 +8,7 @@ The library is fully file-based so you don't need to use any databases.
 
 ## Requirements
 * PHP >= 7.0.0
-* [Eggbe/Helpers](https://github.com/eggbe/helpers)
+* [Able/Helpers](https://github.com/phpeggbe/helpers)
 
 
 ## Install
