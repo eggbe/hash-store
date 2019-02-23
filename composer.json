@@ -1,9 +1,8 @@
 {
 	"name": "eggbe/hash-store",
-	"version": "1.1.4",
 	"type": "library",
 	"keywords": ["hash", "hashes", "file-based", "md5", "lightweight", "lists", "security", "storage"],
-	"description": "File-based library for easy create and manage list of hashes",
+	"description": "File-based library for easy manage a list of hashes",
 	"license": "MIT",
 	"authors": [
 		{

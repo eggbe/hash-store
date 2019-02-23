@@ -1,28 +1,24 @@
 ## Introduction
-This is the powerful library provides an easiest way to create and manage your own list of hashes.      
+The mission of this library - provide the easiest way to create and manage a list of hashes.      
 
 
 ## Features
-The library is fully file-based so you don't need to use any databases. 
+The library is file-based, so it doesn't require any databases. 
 
 
 ## Requirements
 * PHP >= 7.0.0
-* [Able/Helpers](https://github.com/phpeggbe/helpers)
+* [Able/Helpers](https://github.com/phpable/helpers)
 
 
 ## Install
-Here's a pretty simple way to start using Eggbe/HashStore:
-
-
-Step 1: Use [Composer](http://getcomposer.org) to add Eggbe/HashStore in your project: 
-
+There's the simple way to install the ```Eggbe/HashStore``` package via [composer](http://getcomposer.org):
 ```bash
 composer require eggbe/hash-store
 ```
 
-
-Step 2: Create and configure an instance of the object anywhere in your code:
+##Configuration
+Please, follow the example below:
 
 ```php
 $HashStore = new \Eggbe\HashStore\HashStore([
@@ -32,49 +28,42 @@ $HashStore = new \Eggbe\HashStore\HashStore([
 ]);
 ```
 
-The `path` option define the directory to store all generated files. Please, pay attention what you will get an exception if this directory doesn't exists.
-Also the `sort` option specifies the type of sorting and the `filter` option set a regular expression for keywords filtering. If any keyword won't match this expression the special exception will be thrown.     
-
-## Sorting
-
-All hashes stored with a timestamp to have an ability for extended sorting features.
-Currently it possible to sort hashes by:
- 
-* Keywords in direct order (`'sort' => HashStore::BY_WORD`)
-* Keywords in converse order (`'sort' => HashStore::BY_WORD | HashStore::BY_DESC`) 
-* Dates by descending (`'sort' => HashStore::BY_DATE`)
-* Dates by ascending (`'sort' => HashStore::BY_DATE | HashStore::BY_DESC`) 
+The `path` option defines the directory to store all generated files. 
+Please, be sure that directory exists and writable, or you risk to get an exception otherwise. 
 
 
+The `sort` option specifies the sorting and can take the combination of binary flags. 
+Currently, you can choose the sorting by alphabet or by creation date in direct and reverse order.
+
+
+The `filter` option set the regular expression for keywords syntax checking. 
+If any given keyword doesn't match this expression, the exception will be thrown.
+     
+     
 ## Usage
 You have to use the following method to create and add new hash into storage: 
-
 ```php
 $HashStore->create('keyword');
 ```
  
-Of course you always can view all existing hashes via the following code: 
-
+Also, you always can view all existing hashes via the following code: 
 ```php
 foreach($HashStore->all() as $keyword => $content){
 	echo $keyword . ' ' . $content;
 }  
 ```
 
-The following method help you to find any hash by a keyword:
-
+The following method helps you to find any hash by a keyword:
 ```php
 $hash = $HashStore->find('keyword');
 ```
 
-If you need to get a keyword by a hash so it also possible:
-
+But if you need to get a keyword by a hash so it also possible:
 ```php
 $keyword = $HashStore->search('a2f51b04c9a31cd2defc4d3550eecb71');
 ```
 
-And of course you can remove any hash if you really wish:
-
+Of course you can remove any hash if you really need:
 ```php
 $HashStore->remove('keyword');
 ```
@@ -82,12 +71,8 @@ $HashStore->remove('keyword');
 Unfortunately currently this library support only md5 hashes usage but we have plans to extend of the functionality. We will keep you in touch!
 
 
-## Authors
-Made with love at [Eggbe](http://eggbe.com).
-
-
-## Feedback 
-We always welcome your feedback at [github@eggbe.com](mailto:github@eggbe.com).
+##Limitation
+Currently, the only md5 hashes are supported.
 
 
 ## License
